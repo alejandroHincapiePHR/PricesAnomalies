@@ -19,9 +19,9 @@ public class Product {
     private String id;
 
     @Field
-    private List<BigDecimal> outliers;
+    private List<PriceData> outliers;
 
     @Field
-    private List<BigDecimal> nonOutliers;
+    private List<PriceData> nonOutliers;
 
 }

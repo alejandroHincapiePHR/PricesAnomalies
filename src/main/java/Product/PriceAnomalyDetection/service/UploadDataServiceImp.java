@@ -1,10 +1,13 @@
 package Product.PriceAnomalyDetection.service;
 
-import Product.PriceAnomalyDetection.controller.ProductController;
+
+import Product.PriceAnomalyDetection.model.PriceData;
+import Product.PriceAnomalyDetection.model.Product;
 import Product.PriceAnomalyDetection.repository.IProductRepo;
+import Product.PriceAnomalyDetection.service.serviceUtils.dataTransformer.DataTransformer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import lombok.NoArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -18,39 +21,44 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 @Data
-public class UploadDataServiceImp implements IUploadDataService {
+public class UploadDataServiceImp extends GenericImp<Product, String> implements IUploadDataService {
 
     private final IProductRepo repo;
+    private final DataTransformer dataTransformer;
     private static final Logger logger = LoggerFactory.getLogger(UploadDataServiceImp.class);
+
     @Autowired
-    public UploadDataServiceImp(IProductRepo repo) {
+    public UploadDataServiceImp(IProductRepo repo, DataTransformer dataTransformer) {
         this.repo = repo;
+        this.dataTransformer = dataTransformer;
     }
 
 
     @Override
-    public void processFile(MultipartFile file) throws IOException, IllegalArgumentException {
-        Map<String, List<BigDecimal>> data = new HashMap<>();
+    public void processFile(MultipartFile file) throws IOException, IllegalArgumentException, ParseException {
+        Map<String, List<PriceData>> data = new HashMap<>();
 
         try (Reader reader = new InputStreamReader(file.getInputStream());
              CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT.withFirstRecordAsHeader())) {
             for (CSVRecord record : csvParser) {
                 try {
+                    SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                     String itemId = record.get("ITEM_ID");
-                    BigDecimal price = BigDecimal.valueOf(Long.parseLong(record.get("PRICE")));
+                    BigDecimal price = BigDecimal.valueOf(Double.valueOf(record.get("PRICE")));
+                    Date date = format.parse(record.get("ORD_CLOSED_DT"));
+                    PriceData priceData = new PriceData(date, price);
                     if (!data.containsKey(itemId)) {
-                        List<BigDecimal> pricesList = new ArrayList<>();
-                        pricesList.add(price);
+                        List<PriceData> pricesList = new ArrayList<>();
+                        pricesList.add(priceData);
                         data.put(itemId, pricesList);
                     } else {
-                        data.get(itemId).add(price);
+                        data.get(itemId).add(priceData);
                     }
                 } catch (IllegalArgumentException e) {
                     throw e;
@@ -61,8 +69,10 @@ public class UploadDataServiceImp implements IUploadDataService {
             throw e;
         }
 
-
-        logger.info(data.toString());
+        data.forEach((key, value) -> {
+            Product product = dataTransformer.transformToProduct(key, value);
+            save(product);
+        });
 
     }
 

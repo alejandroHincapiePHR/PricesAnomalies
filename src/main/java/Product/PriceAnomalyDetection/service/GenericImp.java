@@ -14,5 +14,10 @@ public abstract class GenericImp<T, ID> implements IGenericService<T, ID> {
         return getRepo().findById(id).orElseThrow(ProductNotFoundException::new);
     }
 
+    @Override
+    public T save(T t){
+        return getRepo().save(t);
+    }
+
 
 }

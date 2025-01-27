@@ -6,5 +6,5 @@ import java.math.BigDecimal;
 
 public interface IProductService extends IGenericService<Product, String>{
 
-    Boolean isAnomaly(String id, BigDecimal price);
+    String isAnomaly(String id, BigDecimal price);
 }
