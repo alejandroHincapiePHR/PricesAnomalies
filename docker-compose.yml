@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+
+  mongo:
+    image: mongo:6.0
+    container_name: mongo_db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+
+  redis:
+    image: redis:7.0
+    container_name: redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+
+  app:
+    image: alh7867/price-anomaly-detection-meli:1.0.0
+    container_name: price-anomaly-detection-meli
+    environment:
+      SPRING_DATA_MONGODB_URI: "mongodb://root:password@mongo:27017/products?authSource=admin"
+      SPRING_REDIS_HOST: "redis"
+      SPRING_REDIS_PORT: "6379"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mongo
+      - redis
+
+
+volumes:
+  mongo_data:
+  redis_data:
+
+
