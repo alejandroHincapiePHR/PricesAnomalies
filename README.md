@@ -134,4 +134,12 @@ el archivo se debe adjuntar con key =  "file" en el cuerpo de la peticion post
 ```
 ### Arquitecturas planteadas ASINCRONA:
 
+Caso de negocio: La aplicación de actualización de productos no requiere obtener respuesta en tiempo real de la anomalia en el precio (idealmente puesto que kafka agrega latencia) y estaria pensado en solo procesar informacion historica y enviar notificaciones o revertir precios posteriormente. 
+
 ![Solucion asincrona MELI](https://github.com/user-attachments/assets/04c710d0-6e81-4dab-9fca-0049ef1d1526)
+
+
+### Arquitecturas planteadas SINCRONA:
+Caso de negocio: proceso principal requiere saber si el precio es anomalo o no para aprobar el cambio, gracias al balanceador de carga y a las replicas de los PODs de K8 podemos manejar buenos tiepos de respuesta en las peticiones. 
+![Solucion sincrona](https://github.com/user-attachments/assets/9ed0198c-6c73-4fcb-b60c-a2bbfdd152a9)
+
