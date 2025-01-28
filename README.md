@@ -132,4 +132,6 @@ el archivo se debe adjuntar con key =  "file" en el cuerpo de la peticion post
   "status_code": "200"
 }
 ```
+### Arquitecturas planteadas ASINCRONA:
 
+![Solucion asincrona MELI](https://github.com/user-attachments/assets/04c710d0-6e81-4dab-9fca-0049ef1d1526)
