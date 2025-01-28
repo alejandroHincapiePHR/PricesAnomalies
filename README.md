@@ -104,7 +104,7 @@ Una vez que los contenedores estén en funcionamiento, puedes acceder a la aplic
 {
   "item_id": "12345",
   "price": 100.0,
-  "anomaly": "No",
+  "anomaly": "true",
   "metadata": {
     "message": "Operación exitosa"
   },
