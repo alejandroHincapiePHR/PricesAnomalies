@@ -154,3 +154,92 @@ Caso de negocio: proceso principal requiere saber si el precio es anomalo o no p
 
 ![Solucion sincrona](https://github.com/user-attachments/assets/9ed0198c-6c73-4fcb-b60c-a2bbfdd152a9)
 
+
+# Algoritmo de Carga de Datos y Detección de Anomalías
+
+El endpoint `POST /upload` se encarga de cargar datos históricos a una base de datos MongoDB y realiza un proceso ETL (Extract, Transform, Load) para identificar precios anómalos y no anómalos. Este proceso facilita el cálculo posterior de nuevas anomalías basadas en un conjunto de datos esperados.
+
+---
+
+## Proceso de Detección de Anomalías
+
+### 1. **Preprocesamiento de Datos**
+- **Agrupación y Ordenamiento**: Los datos se agrupan por `id` y se ordenan por antigüedad para manejar la tendencia del precio en una ventana específica. El tamaño de la ventana se define por la variable `WINDOWSIZE`.
+- **Selección de Datos**: Para cada valor que se desea evaluar, se seleccionan `k` datos alrededor de este (tanto del pasado como del futuro). Se manejan casos especiales (esquinas) tomando más datos del futuro o del pasado según sea necesario.
+
+---
+
+### 2. **Detección de Outliers Extremos (IQR)**
+Se aplica un algoritmo basado en cuartiles para identificar y eliminar outliers extremos:
+- **Cuartiles**:
+  - **Q1 (Primer cuartil)**: Separa el 25% inferior de los datos.
+  - **Q2 (Mediana)**: Separa el 50% de los datos.
+  - **Q3 (Tercer cuartil)**: Separa el 75% de los datos.
+- **Rango Intercuartílico (IQR)**: \( IQR = Q3 - Q1 \)
+- **Límites para Outliers**:
+  - Límite inferior: \( Q1 - 1.5 \times IQR \)
+  - Límite superior: \( Q3 + 1.5 \times IQR \)
+- **Identificación**: Valores fuera de estos límites se consideran outliers extremos.
+
+---
+
+### 3. **Detección de Outliers Respecto a la Tendencia (SMA y Desviación Estándar)**
+Tras eliminar outliers extremos, se utiliza el **Simple Moving Average (SMA)** y la **desviación estándar** para identificar valores atípicos en relación con la tendencia:
+- **Simple Moving Average (SMA)**:
+  \[
+  SMA = \frac{\sum_{i=1}^{n} P_i}{n}
+  \]
+  Donde:
+  - \( P_i \): Precio o valor en el período \( i \).
+  - \( n \): Número de períodos considerados.
+- **Desviación Estándar (\( \sigma \))**:
+  \[
+  \sigma = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \mu)^2}{n}}
+  \]
+  Donde:
+  - \( x_i \): Cada valor individual.
+  - \( \mu \): Media del conjunto de datos.
+  - \( n \): Número de valores.
+- **Límites Dinámicos**:
+  - Límite inferior: \( SMA - k \times \sigma \)
+  - Límite superior: \( SMA + k \times \sigma \)
+- **Identificación**: Valores fuera de estos límites se consideran outliers respecto a la tendencia.
+
+---
+
+### 4. **Ejemplo de Aplicación**
+- Si el SMA de los últimos 10 días es 50 y la desviación estándar es 5, con \( k = 2 \):
+  - Límite inferior: \( 50 - 2 \times 5 = 40 \)
+  - Límite superior: \( 50 + 2 \times 5 = 60 \)
+  - Cualquier valor fuera del rango [40, 60] se considera un outlier.
+
+---
+
+## Ventajas de la Combinación de Métodos
+
+### **1. Detección en Dos Etapas**
+- **Cuartiles**: Identifican outliers extremos y globales.
+- **SMA y Desviación Estándar**: Detectan outliers locales en relación con la tendencia actual.
+
+### **2. Mayor Precisión**
+- Reduce falsos positivos (valores normales identificados como outliers) y falsos negativos (outliers no detectados).
+
+### **3. Adaptabilidad**
+- **Cuartiles**: Ideales para datos con distribuciones no normales o outliers extremos.
+- **SMA y Desviación Estándar**: Efectivos para datos con tendencias y patrones temporales.
+
+### **4. Contextualización**
+- **Cuartiles**: Proporcionan una visión global de los outliers.
+- **SMA y Desviación Estándar**: Contextualizan los outliers en relación con la tendencia actual.
+
+---
+
+## Consideraciones
+- **Elección de \( k \)**: Un valor pequeño de \( k \) puede identificar demasiados outliers, mientras que un valor grande puede ignorar outliers reales.
+- **Distribución de Datos**: Estos métodos asumen una distribución normal. Para datos con distribuciones sesgadas, pueden requerirse ajustes adicionales.
+
+# Algoritmo de Detección de Anomalías Basado en SMA y Desviación Estándar para endpoint POST /isAnomaly
+
+Este algoritmo se enfoca en identificar anomalías utilizando una **ventana de datos típicos** previamente limpiada. Aplica el modelo de **Simple Moving Average (SMA)** y **desviación estándar** para determinar si un valor es típico o atípico dentro del contexto de la tendencia actual. Su principal ventaja radica en la eficiencia y rapidez de cálculo, ya que opera sobre un conjunto de datos ya depurado.
+
+---
