@@ -150,5 +150,7 @@ Caso de negocio: La aplicación de actualización de productos no requiere obten
 
 ### Arquitecturas planteadas SINCRONA:
 Caso de negocio: proceso principal requiere saber si el precio es anomalo o no para aprobar el cambio, gracias al balanceador de carga y a las replicas de los PODs de K8 podemos manejar buenos tiepos de respuesta en las peticiones. 
+
+
 ![Solucion sincrona](https://github.com/user-attachments/assets/9ed0198c-6c73-4fcb-b60c-a2bbfdd152a9)
 
