@@ -61,8 +61,6 @@ Una vez que los contenedores estén en funcionamiento, puedes acceder a la aplic
 
 # API de Detección de Anomalías en Precios
 
-La **API de Detección de Anomalías en Precios** está diseñada para evaluar si un precio dado para un producto específico es considerado una anomalía en función de los datos históricos de precios. Esta API permite a los usuarios cargar datos de precios de productos y realizar una detección de anomalías en los cambios de precios.
-
 ### Características Principales:
 - **Detectar anomalías en los precios**: Verifica si un precio para un producto está fuera del rango esperado según los datos históricos.
 - **Cargar datos de precios**: Permite cargar un archivo CSV con datos de precios de productos para su análisis y almacenamiento.
@@ -84,12 +82,6 @@ La **API de Detección de Anomalías en Precios** está diseñada para evaluar s
    Este endpoint recupera los detalles de un producto por su ID.
    - **Request**: El ID del producto que se va a recuperar.
    - **Response**: Los detalles del producto en formato JSON o un error 404 si el producto no se encuentra.
-
-### Stack Tecnológico:
-- **Backend**: Java con Spring Boot
-- **Base de Datos**: MongoDB para almacenar los datos de los productos y registros de precios.
-- **Cache**: Redis para almacenar en caché los resultados y mejorar el rendimiento.
-- **Algoritmo de Detección de Anomalías**: Algoritmo personalizado basado en el historial de precios para detectar valores atípicos utilizando métodos estadísticos.
 
 ### Manejo de Errores:
 - **400 Bad Request**: Entrada inválida o parámetros faltantes.
