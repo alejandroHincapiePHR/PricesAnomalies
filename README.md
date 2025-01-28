@@ -186,9 +186,14 @@ Se aplica un algoritmo basado en cuartiles para identificar y eliminar outliers 
 ### 3. **Detección de Outliers Respecto a la Tendencia (SMA y Desviación Estándar)**
 Tras eliminar outliers extremos, se utiliza el **Simple Moving Average (SMA)** y la **desviación estándar** para identificar valores atípicos en relación con la tendencia:
 - **Simple Moving Average (SMA)**:
+
+  
 ![image](https://github.com/user-attachments/assets/ba6609e2-993d-444c-b3c8-612f06447d83)
 
-- **Desviación Estándar (\( \sigma \))**:
+
+- **Desviación Estándar**:
+
+  
 ![image](https://github.com/user-attachments/assets/ef92e49e-1255-42fe-946d-062d8bd347d8)
 
 ### 4. **Definición de Límites Dinámicos**
