@@ -1,24 +1,22 @@
 package Product.PriceAnomalyDetection.controller;
 
-import Product.PriceAnomalyDetection.commons.CustomResponse;
-import Product.PriceAnomalyDetection.constant.MessageConstants;
-import Product.PriceAnomalyDetection.errorHandling.exceptions.ProductNotFoundException;
+import Product.PriceAnomalyDetection.controller.commons.CustomResponse;
+import Product.PriceAnomalyDetection.controller.constant.MessageConstants;
+import Product.PriceAnomalyDetection.controller.errorHandling.exceptions.ProductNotFoundException;
 import Product.PriceAnomalyDetection.model.ItemPriceRequest;
 import Product.PriceAnomalyDetection.model.ItemPriceResponse;
 import Product.PriceAnomalyDetection.model.Product;
-import Product.PriceAnomalyDetection.service.IProductService;
-import Product.PriceAnomalyDetection.service.IUploadDataService;
+import Product.PriceAnomalyDetection.service.productService.IProductService;
+import Product.PriceAnomalyDetection.service.uploadService.IUploadDataService;
+import Product.PriceAnomalyDetection.service.productService.ProductService;
 import jakarta.validation.Valid;
-import org.apache.coyote.BadRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -26,7 +24,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 
-import static Product.PriceAnomalyDetection.constant.ApiGlobalConstant.*;
+import static Product.PriceAnomalyDetection.controller.constant.ApiGlobalConstant.*;
 
 @RestController
 @RequestMapping(API_PRODUCT)
@@ -47,7 +45,7 @@ public class ProductController {
      * Checks if a given price for a specific item is considered an anomaly.
 
      * This endpoint accepts a JSON request containing an item ID and a price. It uses the
-     * {@link Product.PriceAnomalyDetection.service.ProductService} to determine if the provided price is an anomaly compared to
+     * {@link ProductService} to determine if the provided price is an anomaly compared to
      * historical data for the item. The response includes the item ID, the provided price,
      * the anomaly status, metadata, and custom headers.
      *
@@ -74,7 +72,7 @@ public class ProductController {
      * @throws ProductNotFoundException If the item ID provided in the request does not exist
      *                                  in the system.
      *
-     * @see Product.PriceAnomalyDetection.service.ProductService
+     * @see ProductService
      * @see ItemPriceRequest
      * @see ItemPriceResponse
      * @see CustomResponse

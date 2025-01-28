@@ -1,8 +1,8 @@
-package Product.PriceAnomalyDetection.errorHandling;
+package Product.PriceAnomalyDetection.controller.errorHandling;
 
-import Product.PriceAnomalyDetection.commons.CustomResponse;
-import Product.PriceAnomalyDetection.constant.MessageConstants;
-import Product.PriceAnomalyDetection.errorHandling.exceptions.ProductNotFoundException;
+import Product.PriceAnomalyDetection.controller.commons.CustomResponse;
+import Product.PriceAnomalyDetection.controller.constant.MessageConstants;
+import Product.PriceAnomalyDetection.controller.errorHandling.exceptions.ProductNotFoundException;
 import Product.PriceAnomalyDetection.model.ItemPriceResponse;
 import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;

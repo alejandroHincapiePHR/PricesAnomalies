@@ -1,4 +1,4 @@
-package Product.PriceAnomalyDetection.service;
+package Product.PriceAnomalyDetection.service.uploadService;
 
 import org.springframework.web.multipart.MultipartFile;
 

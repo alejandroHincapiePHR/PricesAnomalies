@@ -1,9 +1,7 @@
-package Product.PriceAnomalyDetection.service;
+package Product.PriceAnomalyDetection.service.genericService;
 
-import Product.PriceAnomalyDetection.errorHandling.exceptions.ProductNotFoundException;
+import Product.PriceAnomalyDetection.controller.errorHandling.exceptions.ProductNotFoundException;
 import Product.PriceAnomalyDetection.repository.IGenericRepo;
-
-import java.util.NoSuchElementException;
 
 public abstract class GenericImp<T, ID> implements IGenericService<T, ID> {
 

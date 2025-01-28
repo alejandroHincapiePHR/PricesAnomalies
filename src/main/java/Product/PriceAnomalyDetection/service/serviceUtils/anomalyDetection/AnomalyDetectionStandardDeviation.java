@@ -29,6 +29,28 @@ public class AnomalyDetectionStandardDeviation implements AnomalyDetection {
     private  BigDecimal kValue;
     private static final MathContext MATH_CONTEXT = new MathContext(10, RoundingMode.HALF_UP);
 
+    /**
+     * Determines whether a given price is an anomaly based on historical non-outlier prices.
+     *
+     * <p>This method calculates the Simple Moving Average (SMA) and standard deviation of the most recent
+     * historical non-outlier prices and compares the new price against upper and lower limits derived from
+     * these values. If the new price is outside the calculated limits, it is considered an anomaly.</p>
+     *
+     * <p>The method follows these steps:
+     * <ol>
+     *     <li>Sorts the list of non-outlier prices by date.</li>
+     *     <li>Selects a sliding window of the most recent prices based on a predefined window size.</li>
+     *     <li>Calculates the SMA and standard deviation for the selected window of prices.</li>
+     *     <li>Calculates the lower and upper limits using the SMA and standard deviation, adjusting by a factor
+     *         defined by {@code kValue}.</li>
+     *     <li>Compares the new price with the calculated limits to determine if it falls outside (anomaly) or inside
+     *         (not an anomaly) the range.</li>
+     * </ol></p>
+     *
+     * @param nonOutliers A list of historical price data that are not considered outliers.
+     * @param newPrice The new price to evaluate for anomaly detection.
+     * @return {@code "true"} if the new price is considered an anomaly, {@code "false"} otherwise.
+     */
     @Override
     public String isAnomaly(List<PriceData> nonOutliers, BigDecimal newPrice) {
 

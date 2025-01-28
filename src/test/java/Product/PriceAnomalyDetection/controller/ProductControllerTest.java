@@ -1,28 +1,24 @@
 package Product.PriceAnomalyDetection.controller;
 
-import Product.PriceAnomalyDetection.errorHandling.ControllerAdvice;
-import Product.PriceAnomalyDetection.errorHandling.exceptions.ProductNotFoundException;
+import Product.PriceAnomalyDetection.controller.errorHandling.ControllerAdvice;
+import Product.PriceAnomalyDetection.controller.errorHandling.exceptions.ProductNotFoundException;
 import Product.PriceAnomalyDetection.model.ItemPriceRequest;
 import Product.PriceAnomalyDetection.model.PriceData;
 import Product.PriceAnomalyDetection.model.Product;
-import Product.PriceAnomalyDetection.service.IProductService;
-import Product.PriceAnomalyDetection.service.ProductService;
-import Product.PriceAnomalyDetection.service.UploadDataServiceImp;
+import Product.PriceAnomalyDetection.service.productService.IProductService;
+import Product.PriceAnomalyDetection.service.uploadService.UploadDataServiceImp;
 import org.hamcrest.core.IsNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -31,7 +27,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static Product.PriceAnomalyDetection.constant.ApiGlobalConstant.*;
+import static Product.PriceAnomalyDetection.controller.constant.ApiGlobalConstant.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class ProductControllerTest {

@@ -1,4 +1,4 @@
-package Product.PriceAnomalyDetection.service;
+package Product.PriceAnomalyDetection.service.genericService;
 
 public interface IGenericService<T,ID> {
 

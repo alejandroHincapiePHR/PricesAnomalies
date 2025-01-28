@@ -3,6 +3,8 @@ package Product.PriceAnomalyDetection.service;
 import Product.PriceAnomalyDetection.model.Product;
 import Product.PriceAnomalyDetection.repository.IProductRepo;
 import Product.PriceAnomalyDetection.service.serviceUtils.dataTransformer.DataTransformer;
+import Product.PriceAnomalyDetection.service.serviceUtils.processFile.ProcessFileImp;
+import Product.PriceAnomalyDetection.service.uploadService.UploadDataServiceImp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -26,11 +28,14 @@ public class UploadDataServiceTest {
     @Mock
     private DataTransformer dataTransformer;
 
+
+    private ProcessFileImp processFileImp = new ProcessFileImp();
+
     private UploadDataServiceImp uploadDataService;
 
     @BeforeEach
     public void setUp() {
-        uploadDataService = new UploadDataServiceImp(repo, dataTransformer);
+        uploadDataService = new UploadDataServiceImp(repo, dataTransformer, processFileImp);
     }
 
     @Test

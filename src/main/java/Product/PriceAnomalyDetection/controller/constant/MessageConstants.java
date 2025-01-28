@@ -1,4 +1,4 @@
-package Product.PriceAnomalyDetection.constant;
+package Product.PriceAnomalyDetection.controller.constant;
 
 public class MessageConstants {
 

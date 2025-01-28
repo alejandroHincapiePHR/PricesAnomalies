@@ -1,4 +1,4 @@
-package Product.PriceAnomalyDetection.commons;
+package Product.PriceAnomalyDetection.controller.commons;
 
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;

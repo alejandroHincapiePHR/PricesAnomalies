@@ -1,4 +1,4 @@
-package Product.PriceAnomalyDetection.errorHandling.exceptions;
+package Product.PriceAnomalyDetection.controller.errorHandling.exceptions;
 
 public class ProductNotFoundException extends RuntimeException{
 

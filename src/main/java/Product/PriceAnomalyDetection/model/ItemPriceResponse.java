@@ -1,6 +1,6 @@
 package Product.PriceAnomalyDetection.model;
 
-import Product.PriceAnomalyDetection.commons.CustomResponse;
+import Product.PriceAnomalyDetection.controller.commons.CustomResponse;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
