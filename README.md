@@ -186,9 +186,9 @@ Se aplica un algoritmo basado en cuartiles para identificar y eliminar outliers 
 ### 3. **Detección de Outliers Respecto a la Tendencia (SMA y Desviación Estándar)**
 Tras eliminar outliers extremos, se utiliza el **Simple Moving Average (SMA)** y la **desviación estándar** para identificar valores atípicos en relación con la tendencia:
 - **Simple Moving Average (SMA)**:
-  \[
+ $$ \[
   SMA = \frac{\sum_{i=1}^{n} P_i}{n}
-  \]
+  \] $$
   Donde:
   - \( P_i \): Precio o valor en el período \( i \).
   - \( n \): Número de períodos considerados.
