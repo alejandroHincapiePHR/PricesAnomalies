@@ -133,7 +133,7 @@ el archivo se debe adjuntar con key =  "file" en el cuerpo de la peticion post
 }
 ```
 
-###CI/CD 
+### CI/CD 
 GitHub Action pipeline integrado para construir y despliegar imagen de Docker a docker Hub cada vez que se hace commit sobre master
  **Imagen**:  [alh7867/price-anomaly-detection-meli](http://registry.hub.docker.com/r/alh7867/price-anomaly-detection-meli)
 
