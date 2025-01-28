@@ -131,8 +131,3 @@ ITEM_ID,PRICE,ORD_CLOSED_DT
 }
 ```
 
-### Swagger UI
-
-Para obtener más detalles sobre cómo interactuar con la API, puedes acceder a la interfaz de Swagger en el siguiente enlace una vez la aplicacion este corriendo en local:
-
-[Swagger UI - Detección de Anomalías en Precios](http://localhost:8080/swagger-ui.html)
