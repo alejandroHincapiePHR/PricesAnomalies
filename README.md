@@ -57,7 +57,7 @@ Esto levantará los contenedores necesarios para MongoDB, Redis y la aplicación
 
 Una vez que los contenedores estén en funcionamiento, puedes acceder a la aplicación en el siguiente enlace:
 
-[http://localhost:8080](http://localhost:8080)
+[http://localhost:8080/api/v1](http://localhost:8080/api/v1)
 
 
 # API de Detección de Anomalías en Precios
