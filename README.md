@@ -58,10 +58,89 @@ Una vez que los contenedores estén en funcionamiento, puedes acceder a la aplic
 
 [http://localhost:8080](http://localhost:8080)
 
-## Contribuciones
 
-Si deseas contribuir a este proyecto, por favor abre un _pull request_ o crea un _issue_ con tus sugerencias.
+# API de Detección de Anomalías en Precios
 
-## Licencia
+La **API de Detección de Anomalías en Precios** está diseñada para evaluar si un precio dado para un producto específico es considerado una anomalía en función de los datos históricos de precios. Esta API permite a los usuarios cargar datos de precios de productos y realizar una detección de anomalías en los cambios de precios.
 
-Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+### Características Principales:
+- **Detectar anomalías en los precios**: Verifica si un precio para un producto está fuera del rango esperado según los datos históricos.
+- **Cargar datos de precios**: Permite cargar un archivo CSV con datos de precios de productos para su análisis y almacenamiento.
+- **Fácil integración**: Endpoints RESTful diseñados para una integración sencilla en otras aplicaciones.
+
+### Endpoints Disponibles:
+
+1. **POST /isAnomaly**  
+   Este endpoint verifica si el precio de un producto se considera una anomalía.
+   - **Request**: Un payload JSON con el ID del artículo y el precio.
+   - **Response**: El estado de la anomalía ("Sí" o "No"), el ID del artículo, el precio y los metadatos sobre la operación.
+   
+2. **POST /upload**  
+   Este endpoint permite cargar un archivo CSV con los datos de precios de productos. El archivo debe contener las siguientes columnas: `ITEM_ID`, `PRICE` y `ORD_CLOSED_DT`.
+   - **Request**: Un archivo CSV cargado como formulario con el campo "file".
+   - **Response**: Un mensaje de éxito y el código de estado que indica el éxito de la carga del archivo.
+
+3. **GET /{id}**  
+   Este endpoint recupera los detalles de un producto por su ID.
+   - **Request**: El ID del producto que se va a recuperar.
+   - **Response**: Los detalles del producto en formato JSON o un error 404 si el producto no se encuentra.
+
+### Stack Tecnológico:
+- **Backend**: Java con Spring Boot
+- **Base de Datos**: MongoDB para almacenar los datos de los productos y registros de precios.
+- **Cache**: Redis para almacenar en caché los resultados y mejorar el rendimiento.
+- **Algoritmo de Detección de Anomalías**: Algoritmo personalizado basado en el historial de precios para detectar valores atípicos utilizando métodos estadísticos.
+
+### Manejo de Errores:
+- **400 Bad Request**: Entrada inválida o parámetros faltantes.
+- **404 Not Found**: Producto no encontrado con el ID especificado o recurso.
+- **500 Internal Server Error**: Errores inesperados en el servidor o durante el procesamiento.
+
+### Ejemplo de Solicitud y Respuesta:
+
+#### 1. POST /isAnomaly
+##### Solicitud:
+```json
+{
+  "item_id": "12345",
+  "price": 100.0
+}
+```
+
+##### Respuesta:
+```json
+{
+  "item_id": "12345",
+  "price": 100.0,
+  "anomaly": "No",
+  "metadata": {
+    "message": "Operación exitosa"
+  },
+  "status_code": "200"
+}
+```
+
+#### 2. POST /upload
+##### Solicitud:
+Un archivo CSV con el siguiente formato:
+```
+ITEM_ID,PRICE,ORD_CLOSED_DT
+12345,100.0,2023-01-01
+12346,150.0,2023-01-02
+```
+
+##### Respuesta:
+```json
+{
+  "metadata": {
+    "message": "Datos cargados con éxito"
+  },
+  "status_code": "200"
+}
+```
+
+### Swagger UI
+
+Para obtener más detalles sobre cómo interactuar con la API, puedes acceder a la interfaz de Swagger en el siguiente enlace una vez la aplicacion este corriendo en local:
+
+[Swagger UI - Detección de Anomalías en Precios](http://localhost:8080/swagger-ui.html)
