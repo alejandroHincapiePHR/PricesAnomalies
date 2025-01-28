@@ -186,31 +186,19 @@ Se aplica un algoritmo basado en cuartiles para identificar y eliminar outliers 
 ### 3. **Detección de Outliers Respecto a la Tendencia (SMA y Desviación Estándar)**
 Tras eliminar outliers extremos, se utiliza el **Simple Moving Average (SMA)** y la **desviación estándar** para identificar valores atípicos en relación con la tendencia:
 - **Simple Moving Average (SMA)**:
-![image](https://github.com/user-attachments/assets/1fbb52b5-9ac8-4d4a-b0a1-273c5385d546)
+![image](https://github.com/user-attachments/assets/ba6609e2-993d-444c-b3c8-612f06447d83)
 
-  Donde:
-  - \( P_i \): Precio o valor en el período \( i \).
-  - \( n \): Número de períodos considerados.
 - **Desviación Estándar (\( \sigma \))**:
-  \[
-  \sigma = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \mu)^2}{n}}
-  \]
-  Donde:
-  - \( x_i \): Cada valor individual.
-  - \( \mu \): Media del conjunto de datos.
-  - \( n \): Número de valores.
-- **Límites Dinámicos**:
-  - Límite inferior: \( SMA - k \times \sigma \)
-  - Límite superior: \( SMA + k \times \sigma \)
-- **Identificación**: Valores fuera de estos límites se consideran outliers respecto a la tendencia.
+![image](https://github.com/user-attachments/assets/ef92e49e-1255-42fe-946d-062d8bd347d8)
 
----
+### 4. **Definición de Límites Dinámicos**
+- Se establecen límites dinámicos en función del SMA y la desviación estándar:
+  - **Límite inferior**: ( SMA - k ) * sigma
+  - **Límite superior**: ( SMA + k ) * sigma
+  - Donde k es un factor que define el umbral de tolerancia (por ejemplo,  k = 2) .
 
-### 4. **Ejemplo de Aplicación**
-- Si el SMA de los últimos 10 días es 50 y la desviación estándar es 5, con \( k = 2 \):
-  - Límite inferior: \( 50 - 2 \times 5 = 40 \)
-  - Límite superior: \( 50 + 2 \times 5 = 60 \)
-  - Cualquier valor fuera del rango [40, 60] se considera un outlier.
+### 5. **Identificación de Anomalías**
+- Un valor se considera **anómalo** si cae fuera de los límites definidos.
 
 ---
 
