@@ -143,7 +143,7 @@ GitHub Action pipeline integrado para construir y despliegar imagen de Docker a 
 
 ### Arquitecturas planteadas ASINCRONA:
 
-Caso de negocio: La aplicación de actualización de productos no requiere obtener respuesta en tiempo real de la anomalia en el precio (idealmente puesto que kafka agrega latencia) y estaria pensado en solo procesar informacion historica y enviar notificaciones o revertir precios posteriormente. 
+Caso de negocio: La aplicación de actualización de productos no requiere obtener respuesta en tiempo real de la anomalia en el precio (idealmente puesto que kafka agrega latencia). Esta implementación estaria enfocada en que el microservicio procese información historica, envie notificaciones o revierta precios posteriormente.
 
 ![Solucion asincrona MELI](https://github.com/user-attachments/assets/04c710d0-6e81-4dab-9fca-0049ef1d1526)
 
@@ -164,8 +164,8 @@ El endpoint `POST /upload` se encarga de cargar datos históricos a una base de 
 ## Proceso de Detección de Anomalías
 
 ### 1. **Preprocesamiento de Datos**
-- **Agrupación y Ordenamiento**: Los datos se agrupan por `id` y se ordenan por antigüedad para manejar la tendencia del precio en una ventana específica. El tamaño de la ventana se define por la variable `WINDOWSIZE`.
-- **Selección de Datos**: Para cada valor que se desea evaluar, se seleccionan `k` datos alrededor de este (tanto del pasado como del futuro). Se manejan casos especiales (esquinas) tomando más datos del futuro o del pasado según sea necesario.
+- **Agrupación y Ordenamiento**: Los datos se agrupan por `id` y se ordenan por antigüedad para manejar la tendencia del precio en una ventana específica. El tamaño de la ventana se define por la variable `WINDOW_SIZE`.
+- **Selección de Datos**: Para cada valor que se desea evaluar, se seleccionan (WINDOW_SIZE) numero de datos alrededor de este (tanto del pasado como del futuro). Se manejan casos especiales (esquinas) tomando más datos del futuro o del pasado según sea necesario.
 
 ---
 
