@@ -72,7 +72,7 @@ Una vez que los contenedores estén en funcionamiento, puedes acceder a la aplic
 1. **POST /isAnomaly**  
    Este endpoint verifica si el precio de un producto se considera una anomalía.
    - **Request**: Un payload JSON con el ID del artículo y el precio.
-   - **Response**: El estado de la anomalía ("Sí" o "No"), el ID del artículo, el precio y los metadatos sobre la operación.
+   - **Response**: El estado de la anomalía ("true" o "false"), el ID del artículo, el precio y los metadatos sobre la operación.
    
 2. **POST /upload**  
    Este endpoint permite cargar un archivo CSV con los datos de precios de productos. El archivo debe contener las siguientes columnas: `ITEM_ID`, `PRICE` y `ORD_CLOSED_DT`.
