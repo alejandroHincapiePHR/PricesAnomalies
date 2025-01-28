@@ -177,8 +177,8 @@ Se aplica un algoritmo basado en cuartiles para identificar y eliminar outliers 
   - **Q3 (Tercer cuartil)**: Separa el 75% de los datos.
 - **Rango Intercuartílico (IQR)**: \( IQR = Q3 - Q1 \)
 - **Límites para Outliers**:
-  - Límite inferior: \( Q1 - 1.5 \times IQR \)
-  - Límite superior: \( Q3 + 1.5 \times IQR \)
+  - Límite inferior: \( Q1 - 1.5 * IQR \)
+  - Límite superior: \( Q3 + 1.5 * IQR \)
 - **Identificación**: Valores fuera de estos límites se consideran outliers extremos.
 
 ---
