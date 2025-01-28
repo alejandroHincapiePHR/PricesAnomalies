@@ -43,7 +43,7 @@ El archivo `docker-compose.yml` configurará y levantará los siguientes servici
 2. **Redis**: Utiliza la imagen oficial de Redis (`redis:7.0`), configurado en el puerto `6379`.
 
 3. **Aplicación**: La aplicación se ejecuta en un contenedor separado y se conecta a MongoDB y Redis a través de las variables de entorno definidas en el archivo Docker Compose, incluyendo la configuración para la detección de anomalías (`ALGORITHM_WINDOW_SIZE` y `ALGORITHM_K_VALUE`).
-   **Imagen**:  [alh7867/price-anomaly-detection-meli](http://registry.hub.docker.com/r/alh7867/price-anomaly-detection-meli)
+  
 
 Una vez configurado el archivo `docker-compose.yml` con las variables correspondientes, puedes iniciar todos los servicios con el siguiente comando:
 
@@ -132,6 +132,15 @@ el archivo se debe adjuntar con key =  "file" en el cuerpo de la peticion post
   "status_code": "200"
 }
 ```
+
+###CI/CD 
+GitHub Action pipeline integrado para construir y despliegar imagen de Docker a docker Hub cada vez que se hace commit sobre master
+ **Imagen**:  [alh7867/price-anomaly-detection-meli](http://registry.hub.docker.com/r/alh7867/price-anomaly-detection-meli)
+
+![image](https://github.com/user-attachments/assets/446920c4-2aba-4980-a27f-4708cde013ec)
+
+
+
 ### Arquitecturas planteadas ASINCRONA:
 
 Caso de negocio: La aplicación de actualización de productos no requiere obtener respuesta en tiempo real de la anomalia en el precio (idealmente puesto que kafka agrega latencia) y estaria pensado en solo procesar informacion historica y enviar notificaciones o revertir precios posteriormente. 
