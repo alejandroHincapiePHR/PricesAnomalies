@@ -121,7 +121,7 @@ ITEM_ID,PRICE,ORD_CLOSED_DT
 12345,100.0,2023-01-01
 12346,150.0,2023-01-02
 ```
-el archivo se debe adjuntar con nombre "file" en el cuerpo de la peticion post 
+el archivo se debe adjuntar con key =  "file" en el cuerpo de la peticion post 
 
 ##### Respuesta:
 ```json
