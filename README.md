@@ -43,6 +43,7 @@ El archivo `docker-compose.yml` configurará y levantará los siguientes servici
 2. **Redis**: Utiliza la imagen oficial de Redis (`redis:7.0`), configurado en el puerto `6379`.
 
 3. **Aplicación**: La aplicación se ejecuta en un contenedor separado y se conecta a MongoDB y Redis a través de las variables de entorno definidas en el archivo Docker Compose, incluyendo la configuración para la detección de anomalías (`ALGORITHM_WINDOW_SIZE` y `ALGORITHM_K_VALUE`).
+   **Imagen**:  [alh7867/price-anomaly-detection-meli](http://registry.hub.docker.com/r/alh7867/price-anomaly-detection-meli)
 
 Una vez configurado el archivo `docker-compose.yml` con las variables correspondientes, puedes iniciar todos los servicios con el siguiente comando:
 
