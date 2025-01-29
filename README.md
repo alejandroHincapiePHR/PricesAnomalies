@@ -145,14 +145,16 @@ GitHub Action pipeline integrado para construir y despliegar imagen de Docker a 
 
 Caso de negocio: La aplicación de actualización de productos no requiere obtener respuesta en tiempo real de la anomalia en el precio (idealmente puesto que kafka agrega latencia). Esta implementación estaria enfocada en que el microservicio procese información historica, envie notificaciones o revierta precios posteriormente.
 
-![Solucion asincrona MELI](https://github.com/user-attachments/assets/04c710d0-6e81-4dab-9fca-0049ef1d1526)
+![sol async v2jpg](https://github.com/user-attachments/assets/dd5b3af7-0db7-47b9-86f2-f99850dfd25d)
+
 
 
 ### Arquitecturas planteadas SINCRONA:
 Caso de negocio: proceso principal requiere saber si el precio es anomalo o no para aprobar el cambio, gracias al balanceador de carga y a las replicas de los PODs de K8 podemos manejar buenos tiepos de respuesta en las peticiones. 
 
 
-![Solucion sincrona](https://github.com/user-attachments/assets/9ed0198c-6c73-4fcb-b60c-a2bbfdd152a9)
+![Sol Sincrona v2](https://github.com/user-attachments/assets/70a7d370-7462-4788-9927-07e8e47d0983)
+
 
 
 # Algoritmo de Carga de Datos y Detección de Anomalías
